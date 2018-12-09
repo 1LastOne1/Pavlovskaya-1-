@@ -1,1 +1,93 @@
-
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    srand(time(0));
+    const int N(20);
+    int A[N];
+    int i;
+    for(i = 0; i < N; i++)
+    {
+        A[i] = rand()%11;
+        cout << A[i] << "  ";
+    }
+    int i_one, i_two, result = 1;
+    int Max = A[0];
+    int i_max = 0;
+    for(i = 1; i < N; i ++)
+    {
+        if(Max < A[i])
+        {
+            Max = A[i];
+            i_max = i;
+        }
+    }
+    cout << "\n\n максимальное число в массиве: " << Max << endl;
+    cout << " индекс макс. элемента: " << i_max  << endl << endl;
+    for(i = 0; i < N; i ++)
+    {
+        if(A[i] == 0)
+        {
+            i_one = i; 
+            i = N; 
+        }
+    }
+    if(i_one < 0)
+    {
+        cout << " нулей нет, рекомендую перезапустить программу" << endl;
+        return -1;
+    }
+    else
+    {
+        cout << " индекс 1 нулевого элемента: " << i_one << endl;
+    }
+    for(i = i_one + 1; i < N; i ++)
+    {
+        if(A[i] == 0)
+        {
+            i_two = i; 
+            i = N; 
+        }
+    }
+    if(i_two < i_one)
+    {
+        cout << " 2 нуля нету, результат будет неверным, рекомендую перезапустить программу " << endl;
+        
+    }
+    else
+    {
+        cout << " индекс 2 нулевого элемента: " << i_two << endl;
+    }
+    for(i = i_one + 1; i < i_two; i ++)
+    {
+        result *= A[i];
+    }
+    if(i_two - i_one == 1)
+        result = 0;
+    cout << " перемножение элементов между индексами: " << result << endl << endl ;
+    int B[N], j = N/2, k = 0;
+    for(i= 0; i < N; i ++)
+    {
+        if((i+1)%2 ==0)
+        {
+            B[j] = A[i];
+            j++;
+        }
+        else
+        {
+            B[k] = A[i];
+            k++;
+        }
+    }
+    for(i=0;i< N; i++)
+    {
+        cout << B[i]<< "  ";
+    }
+	
+	
+	_getch();
+	return 0;
+}
