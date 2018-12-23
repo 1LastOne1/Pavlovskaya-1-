@@ -1,92 +1,58 @@
-#include <ctime>
 #include <iostream>
 using namespace std;
-int main()
+
+/* В задании не указано, что нужно вводить число n с клавиатуры
+ Поэтому ввожу его как константу, значение которой можно менять
+ непосредственно в коде
+ Про значения элементов массива тоже никакой речи не шло, поэтому
+ присвою им рандомные значения от -100 до 100*/
+
+const int n = 20;
+
+ int main()
 {
-    setlocale(LC_ALL, "Russian");
-    srand(time(0));
-    const int N(20);
-    int A[N];
-    int i;
-    for(i = 0; i < N; i++)
-    {
-        A[i] = rand()%11;
-        cout << A[i] << "  ";
+    int i, max(-100), maxn (0), ran (0), ran1(0);
+    int mass[n], preo[n];
+    cout <<  "Cгенерирован массив: \n";
+    for (i=0; i<=n-1; i++){
+        mass[i] = -100 + rand()%200;
+        cout << mass[i] << " ";
     }
-    int i_one, i_two, result = 1;
-    int Max = A[0];
-    int i_max = 0;
-    for(i = 1; i < N; i ++)
-    {
-        if(Max < A[i])
-        {
-            Max = A[i];
-            i_max = i;
+    for (i=0; i<=n-1; i++){
+        if (mass[i]>max){
+            max = mass[i];
+            maxn = i;
         }
     }
-    cout << "\n\n максимальное число в массиве: " << Max << endl;
-    cout << " индекс макс. элемента: " << i_max  << endl << endl;
-    for(i = 0; i < N; i ++)
-    {
-        if(A[i] == 0)
-        {
-            i_one = i; 
-            i = N; 
+    cout << "\nНомер максимального элемента в массиве: "<< maxn+1 << ";\n";
+    ran = rand()%19;
+    mass[ran] = 0;
+    ran = rand()%19;
+    mass[ran] = 0;
+    cout << "Добавили 2 нулевых элемента : \n";
+    for (i=0; i<=n-1; i++){
+        cout << mass[i] << " ";
+        if (mass[i]==0){ // Таким образом ищу нулевые элементы
+            ran = i; // Да, я мог это сделать выше, но если бы массив не создавался самой программой, это бы
+        } //  не сработало
+    }
+    for (i=n-1; i>=0; i--){ // ищу второй нулевой элемент
+        if (mass[i]==0){
+            ran1 = i;
         }
     }
-    if(i_one < 0)
-    {
-        cout << " нулей нет, рекомендую перезапустить программу" << endl;
-        return -1;
+    max = 1;
+    for (i=ran1+1; i<=ran-1; i++){
+        max = max*mass[i];
     }
-    else
-    {
-        cout << " индекс 1 нулевого элемента: " << i_one << endl;
+    cout << "Произведение всех элементов между нулевыми равно "<< max << endl;
+    cout << "Преобразованный массив: \n";
+    for (i=0; i<n/2; i++){
+        preo[i]=mass[2*i+1];
+        preo[i+n/2]=mass[2*i];
     }
-    for(i = i_one + 1; i < N; i ++)
-    {
-        if(A[i] == 0)
-        {
-            i_two = i; 
-            i = N; 
-        }
+    for (i=0; i<n; i++){
+        cout << preo[i]<< " ";
     }
-    if(i_two < i_one)
-    {
-        cout << " 2 нуля нету, результат будет неверным, рекомендую перезапустить программу " << endl;
-        
-    }
-    else
-    {
-        cout << " индекс 2 нулевого элемента: " << i_two << endl;
-    }
-    for(i = i_one + 1; i < i_two; i ++)
-    {
-        result *= A[i];
-    }
-    if(i_two - i_one == 1)
-        result = 0;
-    cout << " перемножение элементов между индексами: " << result << endl << endl ;
-    int B[N], j = N/2, k = 0;
-    for(i= 0; i < N; i ++)
-    {
-        if((i+1)%2 ==0)
-        {
-            B[j] = A[i];
-            j++;
-        }
-        else
-        {
-            B[k] = A[i];
-            k++;
-        }
-    }
-    for(i=0;i< N; i++)
-    {
-        cout << B[i]<< "  ";
-    }
-	
-	
-	_getch();
-	return 0;
+    return 0;
 }
