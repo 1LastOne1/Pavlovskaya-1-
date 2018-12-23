@@ -1,63 +1,58 @@
-#include <conio.h>
 #include <iostream>
-#include <cstdlib>
 using namespace std;
- 
-struct Train {
-    int number;
-    char path[10];
-    int hour;
-    int min;
-};
-using namespace std;
-int main() {
-    const int N = 8;
-    setlocale(LC_ALL, "Russian");
-    Train trains[8];
 
-    for (int i = 0; i < N; i++) {
-        cout << "Введите пункт назначения поезда " << i + 1 << endl; 
-        cin >> trains[ i ].path ;
-        cout << "Введите номер для поезда " << i + 1 << endl;
-        cin >> trains[ i ].number;
-	cout << "Введите время отправления для поезда (часы) " << i + 1 << endl;
-	cin >> trains[ i ].hour ;
-	cout << "Введите время отправления для поезда (минуты) " << i + 1 << endl;
-	cin >> trains[ i ].min ;
+const int a = 2;//количество записей в массиве
+
+const string abc = "1234567890АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+
+int main (){
+    int i, k, fh, fm;
+    struct train {
+        string name;
+        int numb;
+        int hour;
+        int min;
+        int time;
+        int fletter;
+    };
+    train mas[a];
+    train free;
+    for (i=0; i<a; i++){
+        cout << "Введите название пункта назначения\n";
+        cin >> mas[i].name;
+        cout << "Введите номер поезда\n";
+        cin >> mas[i].numb;
+        cout << "Введите время отправления (Часы и минуты двумя числами через пробел)\n";
+        cin >> mas[i].hour;
+        cin >> mas[i].min;
+        mas[i].time = mas[i].min + mas[i].hour*60;
     }
-    for(int i = 0; i < N; i++) 
-{
-     for(int j = i + 1; j < N; j++) 
-     {
-          if(strcmp(trains[i].path, trains[j].path)>0)
-           {
-		Train tmp = trains[i];
-		trains[i] = trains[j];
-		trains[j] = tmp;
-           }
-     }
-}
-for (int i = 0; i < N; ++i) 
-{
-     cout << " Пункт назначения: " << trains[ i ].path << "   номер: " << trains[ i ].number << "   Время отправления: " << trains[ i ].hour << ":" << trains[ i ].min  << endl << endl;
-}
-int time_h;
-int time_min;
-int k = 0;
-cout << "Введите ваше время (часы затем минуты)" << endl;
-cin >> time_h >> time_min;
-cout << " Ваше время:" << time_h <<":" << time_min << endl << endl;
-for(int i = 0; i < N; i++)
-{
-     if((time_h < trains[i].hour) || (time_h == trains[i].hour && time_min < trains[i].min))
-	{
-	     cout << " следующие поезда отправятся после вашего времени: " << trains[i].number  <<" с временем "<< trains[i].hour << ":"<< trains[i].min << endl;
-	     k++;
+    for (i=0; i<a; i++){
+        for (k=0; k<43; k++){
+            if (mas[i].name[0] == abc[k]){
+                mas[i].fletter = k;
+            }
         }
-}
-     if(k == 0)
-	cout << " Нет подходящих поездов" << endl;
-	
-_getch();
-return 0;
+    }
+    for (i=0; i<a-1; i++){
+        for (k=0; k<a; k++){
+            if (mas[i].fletter < mas[i+1].fletter){
+                free = mas[i];
+                mas[i] = mas[i+1];
+                mas[i+1] = free;
+            }
+        }
+    }
+    cout << "Введите время (два числа через пробелы)\n";
+    cin >> fh >> fm;
+    fm = fm + fh*60;
+    for (i=0; i<a; i++){
+        if (mas[i].time > fm){
+            cout << "\nНайден поезд, отправляющийся после заданного времени: \n";
+            cout << "Место назначения: "<< mas[i].name << ";\n";
+            cout << "Номер поезда: "<< mas[i].numb << ";\n";
+            cout << "Время отправления: "<< mas[i].hour << ":"<< mas[i].min<<";\n";
+        }
+    }
+    return 0;
 }
