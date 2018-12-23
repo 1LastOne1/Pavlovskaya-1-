@@ -1,32 +1,53 @@
 #include <iostream>
-#include <math.h>
 using namespace std;
 
 int main()
 {
-    double xBeg, xEnd, a, b, c, F, step;
-    cout << "Enter xBeg: ";
-    cin >> xBeg;
-    cout << "Enter xEnd: ";
-    cin >> xEnd;
-    cout << "Enter a: ";
+    double d, xn, xk, x, a , b, c;
+    int ai, bi, ci;
+    cout << "Введите шаг dX:";
+    cin >> d;
+    cout << "X начальное - ";
+    cin >> xn;
+    cout << "X конечное - ";
+    cin >> xk;
+    cout << "Введите а:";
     cin >> a;
-    cout << "Enter b: ";
+    cout << "Введите b:";
     cin >> b;
-    cout << "Enter c: ";
+    cout << "Введите c:";
     cin >> c;
-    cout << "Enter step: ";
-    cin >> step;
-    cout << "x" << "\t" << "F" << "\n";
-    for (double x=xBeg; x!=xEnd; x+=step)
-    {
-        if (x<5 and c!=0)
-          F=-a*pow(x,2)-b;
-        else if (x>5 and c==0);
-          F=(x-a)/x;
-        else 
-          F=(-x)/c;
-      cout << x << "\t" << F << "\n";
+    ai = int(a);
+    bi = int(b);
+    ci = int(c);
+    for (x=xn ; x<=xk ; x=x+d){
+        if (x<5 && c!=0){
+            cout <<"Значение при x = "<< x << ": ";
+            if (((a||b)^(a||c))!=0){
+                cout <<-a*(x*x)-b << endl;
+            }
+            else{
+                cout << int(-a*(x*x)-b) << endl;
+            }
+        }
+        else if (x>5 && c==0){
+            cout <<"Значение при x = "<< x << ": ";
+            if (((a||b)^(a||c))!=0){
+                cout << (x-a)/x << endl;
+            }
+            else{
+                cout << int((x-a)/x) << endl;
+            }
+        }
+        else{
+            cout <<"Значение при x = "<< x << ": ";
+            if (((a||b)^(a||c))!=0){
+                cout << -x/c << endl;
+            }
+            else{
+                cout << int(-x/c) << endl;
+            }
+        }
     }
     return 0;
 }
